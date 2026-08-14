@@ -2763,3 +2763,136 @@ RESPONSIVO
     }
 
 }
+/* ============================================================
+   ESTRUTURA GERAL DA PÁGINA
+   ============================================================ */
+
+.site-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ============================================================
+   CONTEÚDO PRINCIPAL
+   ============================================================ */
+
+.site-content {
+    flex: 1;
+}
+
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+
+.site-footer {
+    margin-top: 40px;
+    padding: 20px 30px;
+
+    background: #f4f7fb;
+
+    border-top: 1px solid #dfe5ec;
+}
+
+
+.site-footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* ============================================================
+   LADO ESQUERDO
+   ============================================================ */
+
+.site-footer-left {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    color: #52606d;
+
+    font-size: 13px;
+}
+
+
+.site-footer-left strong {
+    color: #1f4f8a;
+
+    font-size: 14px;
+}
+
+
+.site-footer-left span {
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   LADO DIREITO
+   ============================================================ */
+
+.site-footer-right {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #6b7785;
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+
+.site-footer-right strong {
+    color: #52606d;
+}
+
+
+.site-footer-separator {
+    margin: 0 5px;
+
+    color: #b5bec8;
+}
+
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .site-footer {
+        padding: 18px 20px;
+    }
+
+
+    .site-footer-content {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+
+    .site-footer-right {
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        text-align: center;
+    }
+
+}

@@ -63,6 +63,192 @@ Histórico de Relatórios
 
     </div>
 
+
+    <!-- ================================================== -->
+    <!-- FILTROS -->
+    <!-- ================================================== -->
+
+    <div class="filtros-card">
+
+        <div class="filtros-titulo">
+
+            <h2>
+                🔎 Filtrar relatórios
+            </h2>
+
+            <span>
+                Utilize os filtros para localizar relatórios específicos.
+            </span>
+
+        </div>
+
+
+        <form
+            method="GET"
+            action="{{ url_for('relatorios.historico') }}"
+            class="filtros-form"
+        >
+
+            <!-- DATA INICIAL -->
+
+            <div class="form-group">
+
+                <label for="data_inicio">
+                    Data inicial
+                </label>
+
+                <input
+                    type="date"
+                    id="data_inicio"
+                    name="data_inicio"
+                    value="{{ data_inicio }}"
+                >
+
+            </div>
+
+
+            <!-- DATA FINAL -->
+
+            <div class="form-group">
+
+                <label for="data_fim">
+                    Data final
+                </label>
+
+                <input
+                    type="date"
+                    id="data_fim"
+                    name="data_fim"
+                    value="{{ data_fim }}"
+                >
+
+            </div>
+
+
+            <!-- TURNO -->
+
+            <div class="form-group">
+
+                <label for="turno">
+                    Turno
+                </label>
+
+                <select
+                    id="turno"
+                    name="turno"
+                >
+
+                    <option value="">
+                        Todos os turnos
+                    </option>
+
+                    <option
+                        value="1"
+                        {% if turno == "1" %}selected{% endif %}
+                    >
+                        1º Turno — 00:00 às 05:59
+                    </option>
+
+                    <option
+                        value="2"
+                        {% if turno == "2" %}selected{% endif %}
+                    >
+                        2º Turno — 06:00 às 11:59
+                    </option>
+
+                    <option
+                        value="3"
+                        {% if turno == "3" %}selected{% endif %}
+                    >
+                        3º Turno — 12:00 às 17:59
+                    </option>
+
+                    <option
+                        value="4"
+                        {% if turno == "4" %}selected{% endif %}
+                    >
+                        4º Turno — 18:00 às 23:59
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- USUÁRIO -->
+
+            <div class="form-group">
+
+                <label for="usuario_id">
+                    Registrado por
+                </label>
+
+                <select
+                    id="usuario_id"
+                    name="usuario_id"
+                >
+
+                    <option value="">
+                        Todos os usuários
+                    </option>
+
+                    {% for usuario in usuarios %}
+
+                        <option
+                            value="{{ usuario.id }}"
+                            {% if usuario_id == usuario.id|string %}selected{% endif %}
+                        >
+                            {{ usuario.nome }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
+            <div class="filtros-acoes">
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    🔎 Filtrar
+                </button>
+
+                <a
+                    href="{{ url_for('relatorios.historico') }}"
+                    class="btn-secundario"
+                >
+                    Limpar filtros
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- RESULTADO -->
+    <!-- ================================================== -->
+
+    <div class="relatorios-resultado">
+
+        <strong>
+            {{ relatorios|length }}
+        </strong>
+
+        relatório{% if relatorios|length != 1 %}s{% endif %}
+        encontrado{% if relatorios|length != 1 %}s{% endif %}.
+
+    </div>
+
+
     <!-- ================================================== -->
     <!-- LISTA -->
     <!-- ================================================== -->
@@ -132,6 +318,7 @@ Histórico de Relatórios
 
         </div>
 
+
     {% else %}
 
         <div class="empty-state">
@@ -141,18 +328,18 @@ Histórico de Relatórios
             </div>
 
             <h2>
-                Nenhum relatório registrado
+                Nenhum relatório encontrado
             </h2>
 
             <p>
-                Ainda não existem relatórios cadastrados no sistema.
+                Não existem relatórios correspondentes aos filtros informados.
             </p>
 
             <a
-                href="{{ url_for('relatorios.novo') }}"
-                class="btn-principal"
+                href="{{ url_for('relatorios.historico') }}"
+                class="btn-secundario"
             >
-                Criar primeiro relatório
+                Limpar filtros
             </a>
 
         </div>

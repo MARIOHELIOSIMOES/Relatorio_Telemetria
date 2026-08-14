@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import (
     Blueprint,
@@ -16,7 +16,8 @@ from flask_login import (
 
 from database.models import (
     db,
-    Relatorio
+    Relatorio,
+    Usuario
 )
 
 from utils.turnos import (
@@ -97,11 +98,8 @@ def novo():
 
         relatorio = Relatorio(
             usuario_id=current_user.id,
-
             data_hora=agora,
-
             turno=turno_atual,
-
             descricao=descricao
         )
 
@@ -138,11 +136,8 @@ def novo():
 
     return render_template(
         "relatorios/novo.html",
-
         data_atual=data_atual,
-
         turno_atual=turno_atual,
-
         horario_turno=horario_turno
     )
 
@@ -155,20 +150,223 @@ def novo():
 @login_required
 def historico():
 
-    relatorios = (
-        db.session.scalars(
-            db.select(Relatorio)
-            .order_by(
-                Relatorio.data_hora.desc()
+    # ========================================================
+    # DATAS PADRÃO
+    # ========================================================
+
+    hoje = datetime.now().date()
+
+    ontem = hoje - timedelta(days=1)
+
+
+    # ========================================================
+    # RECEBE FILTROS
+    # ========================================================
+
+    data_inicio = request.args.get(
+        "data_inicio",
+        ""
+    ).strip()
+
+    data_fim = request.args.get(
+        "data_fim",
+        ""
+    ).strip()
+
+    turno = request.args.get(
+        "turno",
+        ""
+    ).strip()
+
+    usuario_id = request.args.get(
+        "usuario_id",
+        ""
+    ).strip()
+
+
+    # ========================================================
+    # SE NÃO INFORMOU DATA, USA ONTEM E HOJE
+    # ========================================================
+
+    if not data_inicio:
+
+        data_inicio = ontem.strftime(
+            "%Y-%m-%d"
+        )
+
+
+    if not data_fim:
+
+        data_fim = hoje.strftime(
+            "%Y-%m-%d"
+        )
+
+
+    # ========================================================
+    # CONVERTE DATAS
+    # ========================================================
+
+    try:
+
+        data_inicio_obj = datetime.strptime(
+            data_inicio,
+            "%Y-%m-%d"
+        )
+
+        data_fim_obj = datetime.strptime(
+            data_fim,
+            "%Y-%m-%d"
+        )
+
+        # ----------------------------------------------------
+        # O dia final deve ser incluído integralmente.
+        #
+        # Exemplo:
+        #
+        # Data final = 14/08/2026
+        #
+        # Consulta:
+        # < 15/08/2026 00:00:00
+        #
+        # Dessa forma, registros feitos durante todo
+        # o dia 14/08 são incluídos.
+        # ----------------------------------------------------
+
+        data_fim_exclusiva = (
+            data_fim_obj + timedelta(days=1)
+        )
+
+    except ValueError:
+
+        flash(
+            "Período de datas inválido.",
+            "danger"
+        )
+
+        data_inicio = ontem.strftime(
+            "%Y-%m-%d"
+        )
+
+        data_fim = hoje.strftime(
+            "%Y-%m-%d"
+        )
+
+        data_inicio_obj = datetime.combine(
+            ontem,
+            datetime.min.time()
+        )
+
+        data_fim_exclusiva = datetime.combine(
+            hoje + timedelta(days=1),
+            datetime.min.time()
+        )
+
+
+    # ========================================================
+    # CONSULTA BASE
+    # ========================================================
+
+    query = db.select(
+        Relatorio
+    )
+
+
+    # ========================================================
+    # FILTRO POR PERÍODO
+    # ========================================================
+
+    query = query.where(
+        Relatorio.data_hora >= data_inicio_obj,
+        Relatorio.data_hora < data_fim_exclusiva
+    )
+
+
+    # ========================================================
+    # FILTRO POR TURNO
+    # ========================================================
+
+    if turno:
+
+        query = query.where(
+            Relatorio.turno == turno
+        )
+
+
+    # ========================================================
+    # FILTRO POR USUÁRIO
+    # ========================================================
+
+    if usuario_id:
+
+        try:
+
+            usuario_id_int = int(
+                usuario_id
             )
+
+            query = query.where(
+                Relatorio.usuario_id == usuario_id_int
+            )
+
+        except ValueError:
+
+            usuario_id = ""
+
+
+    # ========================================================
+    # ORDENAÇÃO
+    # ========================================================
+
+    query = query.order_by(
+        Relatorio.data_hora.desc()
+    )
+
+
+    # ========================================================
+    # EXECUTA CONSULTA
+    # ========================================================
+
+    relatorios = db.session.scalars(
+        query
+    ).all()
+
+
+    # ========================================================
+    # USUÁRIOS PARA O FILTRO
+    # ========================================================
+
+    usuarios = (
+        db.session.query(
+            Usuario
+        )
+        .filter_by(
+            ativo=True
+        )
+        .order_by(
+            Usuario.nome.asc()
         )
         .all()
     )
 
 
+    # ========================================================
+    # RENDERIZA
+    # ========================================================
+
     return render_template(
         "relatorios/historico.html",
-        relatorios=relatorios
+
+        relatorios=relatorios,
+
+        usuarios=usuarios,
+
+        data_inicio=data_inicio,
+
+        data_fim=data_fim,
+
+        turno=turno,
+
+        usuario_id=usuario_id
     )
 
 
@@ -200,7 +398,9 @@ def visualizar(relatorio_id):
         )
 
         return redirect(
-            url_for("relatorios.historico")
+            url_for(
+                "relatorios.historico"
+            )
         )
 
 
@@ -243,7 +443,9 @@ def editar(relatorio_id):
         )
 
         return redirect(
-            url_for("relatorios.historico")
+            url_for(
+                "relatorios.historico"
+            )
         )
 
 
@@ -370,7 +572,9 @@ def excluir(relatorio_id):
         )
 
         return redirect(
-            url_for("relatorios.historico")
+            url_for(
+                "relatorios.historico"
+            )
         )
 
 
@@ -397,7 +601,9 @@ def excluir(relatorio_id):
     # EXCLUI
     # ========================================================
 
-    db.session.delete(relatorio)
+    db.session.delete(
+        relatorio
+    )
 
     db.session.commit()
 
@@ -417,5 +623,7 @@ def excluir(relatorio_id):
     # ========================================================
 
     return redirect(
-        url_for("relatorios.historico")
+        url_for(
+            "relatorios.historico"
+        )
     )
