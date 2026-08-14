@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}
+Editar Relatório #{{ relatorio.id }}
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Editar Relatório #{{ relatorio.id }}
+            </h1>
+
+            <p>
+                Alteração das informações do relatório
+            </p>
+
+        </div>
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- FORMULÁRIO -->
+    <!-- ================================================== -->
+
+    <div class="relatorio-form-card">
+
+
+        <!-- ================================================== -->
+        <!-- INFORMAÇÕES DO RELATÓRIO -->
+        <!-- ================================================== -->
+
+        <div class="relatorio-info">
+
+
+            <!-- DATA -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Data
+                </span>
+
+                <strong>
+                    {{ relatorio.data_hora.strftime('%d/%m/%Y') }}
+                </strong>
+
+            </div>
+
+
+            <!-- TURNO -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Turno
+                </span>
+
+                <strong>
+                    {{ relatorio.turno }}º Turno
+                </strong>
+
+            </div>
+
+
+            <!-- HORÁRIO -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Horário
+                </span>
+
+                <strong>
+                    {% if relatorio.turno == "1" %}
+                        00:00 às 05:59
+                    {% elif relatorio.turno == "2" %}
+                        06:00 às 11:59
+                    {% elif relatorio.turno == "3" %}
+                        12:00 às 17:59
+                    {% elif relatorio.turno == "4" %}
+                        18:00 às 23:59
+                    {% endif %}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- FORMULÁRIO -->
+        <!-- ================================================== -->
+
+        <form
+            method="POST"
+            class="relatorio-form"
+        >
+
+            <div class="form-group">
+
+                <label for="descricao">
+                    Descrição do relatório
+                </label>
+
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    rows="12"
+                    placeholder="Digite as ocorrências, atividades, observações ou informações relevantes do turno..."
+                    required
+                >{{ relatorio.descricao }}</textarea>
+
+                <small>
+                    Altere somente as informações que precisam ser corrigidas ou atualizadas.
+                </small>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- AÇÕES -->
+            <!-- ================================================== -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('relatorios.visualizar', relatorio_id=relatorio.id) }}"
+                    class="btn-secondary"
+                >
+                    ← Cancelar
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    💾 Salvar Alterações
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

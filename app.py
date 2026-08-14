@@ -1,13 +1,19 @@
 import getpass
 import bcrypt
+from datetime import datetime
 
-from flask import Flask
-from flask_login import LoginManager
+from flask import Flask, render_template
+from flask_login import LoginManager, login_required, current_user
 from flask_migrate import Migrate
 
 import config
 
-from database.models import db, Usuario
+from database.models import (
+    db,
+    Usuario,
+    Aviso,
+    Relatorio
+)
 
 
 # ============================================================
@@ -93,24 +99,21 @@ app.register_blueprint(admin_bp)
 
 
 # ============================================================
-# ROTA PRINCIPAL
+# ROTA PRINCIPAL - DASHBOARD
 # ============================================================
 
 @app.route("/")
+@login_required
 def index():
-
-    from flask import redirect, url_for, render_template
-    from flask_login import current_user
-
-    if not current_user.is_authenticated:
-        return redirect(
-            url_for("login.login")
-        )
 
     from utils.turnos import (
         obter_turno,
         obter_horario_turno
     )
+
+    # ========================================================
+    # TURNO
+    # ========================================================
 
     turno_atual = obter_turno()
 
@@ -118,12 +121,192 @@ def index():
         turno_atual
     )
 
-    return render_template(
-        "dashboard.html",
-        turno_atual=turno_atual,
-        horario_turno=horario_turno
+    # ========================================================
+    # DATA ATUAL
+    # ========================================================
+
+    hoje = datetime.now().date()
+
+    inicio_dia = datetime.combine(
+        hoje,
+        datetime.min.time()
     )
 
+    fim_dia = datetime.combine(
+        hoje,
+        datetime.max.time()
+    )
+
+    # ========================================================
+    # INDICADORES
+    # ========================================================
+
+    # --------------------------------------------------------
+    # TOTAL DE RELATÓRIOS DO DIA
+    # --------------------------------------------------------
+
+    total_relatorios = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia
+        )
+    ) or 0
+
+
+    # --------------------------------------------------------
+    # RELATÓRIOS POR TURNO
+    # --------------------------------------------------------
+
+    relatorios_turno_1 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "1"
+        )
+    ) or 0
+
+
+    relatorios_turno_2 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "2"
+        )
+    ) or 0
+
+
+    relatorios_turno_3 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "3"
+        )
+    ) or 0
+
+
+    # --------------------------------------------------------
+    # AVISOS ATIVOS
+    # --------------------------------------------------------
+
+    total_avisos = db.session.scalar(
+        db.select(
+            db.func.count(Aviso.id)
+        ).where(
+            Aviso.ativo.is_(True)
+        )
+    ) or 0
+
+
+    # --------------------------------------------------------
+    # USUÁRIOS ATIVOS
+    # --------------------------------------------------------
+
+    total_usuarios = db.session.scalar(
+        db.select(
+            db.func.count(Usuario.id)
+        ).where(
+            Usuario.ativo.is_(True)
+        )
+    ) or 0
+    # ========================================================
+    # RELATÓRIOS POR TURNO
+    # ========================================================
+
+    relatorios_turno_1 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "1"
+        )
+    ) or 0
+
+    relatorios_turno_2 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "2"
+        )
+    ) or 0
+
+    relatorios_turno_3 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "3"
+        )
+    ) or 0
+
+    relatorios_turno_4 = db.session.scalar(
+        db.select(
+            db.func.count(Relatorio.id)
+        ).where(
+            Relatorio.data_hora >= inicio_dia,
+            Relatorio.data_hora <= fim_dia,
+            Relatorio.turno == "4"
+        )
+    ) or 0
+
+
+
+    # ========================================================
+    # AVISOS RECENTES
+    # ========================================================
+
+    avisos_recentes = (
+        db.session.scalars(
+            db.select(Aviso)
+            .where(
+                Aviso.ativo.is_(True)
+            )
+            .order_by(
+                Aviso.data_criacao.desc()
+            )
+            .limit(3)
+        )
+        .all()
+    )
+
+    # ========================================================
+    # DASHBOARD
+    # ========================================================
+
+    return render_template(
+        "dashboard.html",
+
+        turno_atual=turno_atual,
+
+        horario_turno=horario_turno,
+
+        total_relatorios=total_relatorios,
+
+        total_avisos=total_avisos,
+
+        total_usuarios=total_usuarios,
+
+        relatorios_turno_1=relatorios_turno_1,
+
+        relatorios_turno_2=relatorios_turno_2,
+
+        relatorios_turno_3=relatorios_turno_3,
+
+        relatorios_turno_4=relatorios_turno_4,
+
+        avisos_recentes=avisos_recentes
+    )
 
 # ============================================================
 # COMANDO - CRIAR ADMINISTRADOR

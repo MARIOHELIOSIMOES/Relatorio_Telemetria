@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}
+Relatório #{{ relatorio.id }}
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Relatório #{{ relatorio.id }}
+            </h1>
+
+            <p>
+                Detalhes do relatório de telemetria
+            </p>
+
+        </div>
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- RELATÓRIO -->
+    <!-- ================================================== -->
+
+    <div class="relatorio-detalhe">
+
+        <!-- ================================================== -->
+        <!-- INFORMAÇÕES -->
+        <!-- ================================================== -->
+
+        <div class="relatorio-detalhe-header">
+
+            <div>
+
+                <span class="relatorio-detalhe-label">
+                    Data e hora
+                </span>
+
+                <strong>
+                    {{ relatorio.data_hora.strftime('%d/%m/%Y %H:%M') }}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span class="relatorio-detalhe-label">
+                    Turno
+                </span>
+
+                <strong>
+                    {{ relatorio.turno }}º Turno
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span class="relatorio-detalhe-label">
+                    Registrado por
+                </span>
+
+                <strong>
+                    {{ relatorio.usuario.nome }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- DESCRIÇÃO -->
+        <!-- ================================================== -->
+
+        <div class="relatorio-descricao">
+
+            <h2>
+                Descrição
+            </h2>
+
+            <div class="relatorio-texto">
+                {{ relatorio.descricao }}
+            </div>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- AÇÕES -->
+        <!-- ================================================== -->
+        <div class="relatorio-acoes">
+
+            <a
+                href="{{ url_for('relatorios.historico') }}"
+                class="btn-secondary"
+            >
+                ← Voltar ao Histórico
+            </a>
+
+            <a
+                href="{{ url_for('relatorios.editar', relatorio_id=relatorio.id) }}"
+                class="btn-editar"
+            >
+                ✏️ Editar
+            </a>
+
+            <form
+                method="POST"
+                action="{{ url_for('relatorios.excluir', relatorio_id=relatorio.id) }}"
+                onsubmit="return confirm('Tem certeza que deseja excluir este relatório?');"
+                style="margin: 0;"
+            >
+
+                <button
+                    type="submit"
+                    class="btn-excluir"
+                >
+                    🗑️ Excluir
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

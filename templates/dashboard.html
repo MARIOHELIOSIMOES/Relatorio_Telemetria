@@ -8,120 +8,484 @@ Painel - Relatórios de Telemetria
 
 <div class="dashboard">
 
-    <!-- ===================================================== -->
+    <!-- ================================================== -->
     <!-- CABEÇALHO -->
-    <!-- ===================================================== -->
+    <!-- ================================================== -->
 
     <header class="dashboard-header">
 
         <div>
-            <h1>Relatórios de Telemetria</h1>
-            <p>SAAE Mogi Mirim</p>
+
+            <h1>
+                Relatórios de Telemetria
+            </h1>
+
+            <p>
+                SAAE Mogi Mirim
+            </p>
+
         </div>
 
         <div class="user-info">
-            <p>
-                <strong>Usuário:</strong>
-                {{ current_user.nome }}
-            </p>
 
-            <a href="{{ url_for('login.logout') }}" class="btn-sair">
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
                 Sair
             </a>
+
         </div>
 
     </header>
 
-    <!-- ===================================================== -->
-    <!-- TURNO -->
-    <!-- ===================================================== -->
 
-    <section class="turno-card">
+    <!-- ================================================== -->
+    <!-- INDICADORES -->
+    <!-- ================================================== -->
 
-        <h2>Turno Atual</h2>
+    <section class="dashboard-indicators">
 
-        <h1>{{ turno_atual }}º Turno</h1>
 
-        <p>{{ horario_turno }}</p>
+        <!-- RELATÓRIOS -->
+
+        <div class="indicator-card">
+
+            <div class="indicator-icon">
+                📝
+            </div>
+
+            <div>
+
+                <span class="indicator-label">
+                    Relatórios do dia
+                </span>
+
+                <strong class="indicator-value">
+                    {{ total_relatorios }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- AVISOS -->
+
+        <div class="indicator-card">
+
+            <div class="indicator-icon">
+                📢
+            </div>
+
+            <div>
+
+                <span class="indicator-label">
+                    Avisos ativos
+                </span>
+
+                <strong class="indicator-value">
+                    {{ total_avisos }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- USUÁRIOS -->
+
+        <div class="indicator-card">
+
+            <div class="indicator-icon">
+                👥
+            </div>
+
+            <div>
+
+                <span class="indicator-label">
+                    Usuários ativos
+                </span>
+
+                <strong class="indicator-value">
+                    {{ total_usuarios }}
+                </strong>
+
+            </div>
+
+        </div>
+
 
     </section>
 
-    <!-- ===================================================== -->
-    <!-- MENU -->
-    <!-- ===================================================== -->
 
-    <section class="menu-grid">
+    <!-- ================================================== -->
+    <!-- TURNO ATUAL -->
+    <!-- ================================================== -->
 
-        <a href="{{ url_for('avisos.lista') }}" class="menu-card">
-            <div class="menu-icon">📢</div>
+    <section class="turno-card">
 
-            <h3>Quadro de Avisos</h3>
+        <div>
+
+            <h2>
+                Turno atual
+            </h2>
+
+            <p class="turno-numero">
+                {{ turno_atual }}º Turno
+            </p>
 
             <p>
-                Consulte os avisos cadastrados pelos operadores.
+                {{ horario_turno }}
             </p>
-        </a>
+
+        </div>
+
+    </section>
 
 
-        <a href="#" class="menu-card">
-            <div class="menu-icon">📝</div>
+    <!-- ================================================== -->
+    <!-- RESUMO DOS TURNOS -->
+    <!-- ================================================== -->
 
-            <h3>Novo Relatório</h3>
+    <section class="turnos-resumo">
 
-            <p>
-                Registrar relatório do turno.
-            </p>
-        </a>
+        <div class="section-title">
 
+            <h2>
+                Relatórios de hoje
+            </h2>
 
-        <a href="#" class="menu-card">
-            <div class="menu-icon">📚</div>
+            <span>
+                Resumo por turno
+            </span>
 
-            <h3>Histórico</h3>
-
-            <p>
-                Consultar relatórios anteriores.
-            </p>
-        </a>
+        </div>
 
 
-        <a href="#" class="menu-card">
-            <div class="menu-icon">🔑</div>
-
-            <h3>Alterar Senha</h3>
-
-            <p>
-                Alterar sua senha de acesso.
-            </p>
-        </a>
-
-        {% if current_user.administrador %}
-
-        <a href="#" class="menu-card">
-            <div class="menu-icon">👤</div>
-
-            <h3>Usuários</h3>
-
-            <p>
-                Cadastro e gerenciamento de usuários.
-            </p>
-        </a>
+        <div class="turnos-grid">
 
 
-        <a href="{{ url_for('admin.index') }}"
-            class="menu-card">
-            <div class="menu-icon">⚙️</div>
+            <!-- TURNO 1 -->
 
-            <h3>Administração</h3>
+            <div class="turno-resumo-card">
 
-            <p>
-                Configurações gerais do sistema.
-            </p>
-        </a>
+                <span class="turno-resumo-label">
+                    1º Turno
+                </span>
+
+                <strong>
+                    {{ relatorios_turno_1 }}
+                </strong>
+
+                <small>
+                    relatório(s)
+                </small>
+
+            </div>
+
+
+            <!-- TURNO 2 -->
+
+            <div class="turno-resumo-card">
+
+                <span class="turno-resumo-label">
+                    2º Turno
+                </span>
+
+                <strong>
+                    {{ relatorios_turno_2 }}
+                </strong>
+
+                <small>
+                    relatório(s)
+                </small>
+
+            </div>
+
+
+            <!-- TURNO 3 -->
+
+            <div class="turno-resumo-card">
+
+                <span class="turno-resumo-label">
+                    3º Turno
+                </span>
+
+                <strong>
+                    {{ relatorios_turno_3 }}
+                </strong>
+
+                <small>
+                    relatório(s)
+                </small>
+
+            </div>
+            <!-- TURNO 4 -->
+
+            <div class="turno-resumo-card">
+
+                <span class="turno-resumo-label">
+                    4º Turno
+                </span>
+
+                <strong>
+                    {{ relatorios_turno_4 }}
+                </strong>
+
+                <small>
+                    relatório(s)
+                </small>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================== -->
+    <!-- AVISOS RECENTES -->
+    <!-- ================================================== -->
+
+    <section class="avisos-recentes">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Avisos recentes
+                </h2>
+
+                <span>
+                    Últimos comunicados do setor
+                </span>
+
+            </div>
+
+            <a
+                href="{{ url_for('avisos.lista') }}"
+                class="section-link"
+            >
+                Ver todos →
+            </a>
+
+        </div>
+
+
+        {% if avisos_recentes %}
+
+            <div class="avisos-lista">
+
+                {% for aviso in avisos_recentes %}
+
+                    <a
+                        href="{{ url_for('avisos.lista') }}"
+                        class="aviso-resumo"
+                    >
+
+                        <div class="aviso-resumo-icon">
+                            📢
+                        </div>
+
+                        <div class="aviso-resumo-content">
+
+                            <h3>
+                                {{ aviso.titulo }}
+                            </h3>
+
+                            <p>
+                                {{ aviso.texto[:120] }}
+                                {% if aviso.texto|length > 120 %}
+                                    ...
+                                {% endif %}
+                            </p>
+
+                            <small>
+                                {{ aviso.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="sem-avisos">
+
+                <span>
+                    📢
+                </span>
+
+                <p>
+                    Nenhum aviso ativo no momento.
+                </p>
+
+            </div>
 
         {% endif %}
 
     </section>
+
+
+    <!-- ================================================== -->
+    <!-- MENU PRINCIPAL -->
+    <!-- ================================================== -->
+
+    <section class="menu-grid">
+
+
+        <!-- AVISOS -->
+
+        <a
+            href="{{ url_for('avisos.lista') }}"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                📢
+            </div>
+
+            <h3>
+                Quadro de Avisos
+            </h3>
+
+            <p>
+                Consulte os avisos importantes
+                do setor de telemetria.
+            </p>
+
+        </a>
+
+
+        <!-- NOVO RELATÓRIO -->
+
+        <a
+            href="{{ url_for('relatorios.novo') }}"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                📝
+            </div>
+
+            <h3>
+                Novo Relatório
+            </h3>
+
+            <p>
+                Registre as informações
+                relevantes do seu turno.
+            </p>
+
+        </a>
+
+
+        <!-- HISTÓRICO -->
+
+        <a
+            href="{{ url_for('relatorios.historico') }}"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                📚
+            </div>
+
+            <h3>
+                Histórico
+            </h3>
+
+            <p>
+                Consulte relatórios
+                de períodos anteriores.
+            </p>
+
+        </a>
+
+
+        <!-- ALTERAR SENHA -->
+
+        <a
+            href="#"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                🔑
+            </div>
+
+            <h3>
+                Alterar Senha
+            </h3>
+
+            <p>
+                Altere sua senha de acesso
+                ao sistema.
+            </p>
+
+        </a>
+
+
+        <!-- USUÁRIOS -->
+
+        {% if current_user.administrador %}
+
+        <a
+            href="{{ url_for('usuarios.admin') }}"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                👥
+            </div>
+
+            <h3>
+                Usuários
+            </h3>
+
+            <p>
+                Gerencie os usuários
+                do sistema.
+            </p>
+
+        </a>
+
+
+        <!-- ADMINISTRAÇÃO -->
+
+        <a
+            href="{{ url_for('admin.index') }}"
+            class="menu-card"
+        >
+
+            <div class="menu-icon">
+                ⚙️
+            </div>
+
+            <h3>
+                Administração
+            </h3>
+
+            <p>
+                Acesse as ferramentas
+                administrativas.
+            </p>
+
+        </a>
+
+        {% endif %}
+
+
+    </section>
+
 
 </div>
 

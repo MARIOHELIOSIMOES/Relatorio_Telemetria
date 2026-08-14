@@ -37,13 +37,29 @@ Quadro de Avisos - Relatórios de Telemetria
                 Olá, {{ current_user.nome }}
             </span>
 
-            <a href="{{ url_for('index') }}">
-                Voltar
+            <a href="{{ url_for('login.logout') }}">
+                Sair
             </a>
 
         </div>
 
     </header>
+
+
+    <!-- ================================================== -->
+    <!-- AÇÕES -->
+    <!-- ================================================== -->
+
+    <div class="pagina-acoes">
+
+        <a
+            href="{{ url_for('index') }}"
+            class="btn-secondary"
+        >
+            ← Voltar ao Dashboard
+        </a>
+
+    </div>
 
 
     <!-- ================================================== -->

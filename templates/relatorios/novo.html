@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}
+Novo Relatório
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Novo Relatório
+            </h1>
+
+            <p>
+                Registro das informações do turno
+            </p>
+
+        </div>
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- FORMULÁRIO -->
+    <!-- ================================================== -->
+
+    <div class="relatorio-form-card">
+
+
+        <!-- ================================================== -->
+        <!-- INFORMAÇÕES DO RELATÓRIO -->
+        <!-- ================================================== -->
+
+        <div class="relatorio-info">
+
+
+            <!-- DATA -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Data
+                </span>
+
+                <strong>
+                    {{ data_atual }}
+                </strong>
+
+            </div>
+
+
+            <!-- TURNO -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Turno atual
+                </span>
+
+                <strong>
+                    {{ turno_atual }}º Turno
+                </strong>
+
+            </div>
+
+
+            <!-- HORÁRIO -->
+
+            <div class="relatorio-info-item">
+
+                <span>
+                    Horário
+                </span>
+
+                <strong>
+                    {{ horario_turno }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- FORMULÁRIO -->
+        <!-- ================================================== -->
+
+        <form
+            method="POST"
+            class="relatorio-form"
+        >
+
+            <div class="form-group">
+
+                <label for="descricao">
+                    Descrição do relatório
+                </label>
+
+                <textarea
+                    id="descricao"
+                    name="descricao"
+                    rows="12"
+                    placeholder="Digite as ocorrências, atividades, observações ou informações relevantes do turno..."
+                    required
+                >{{ descricao|default('') }}</textarea>
+
+                <small>
+                    Registre as informações importantes observadas durante o turno.
+                </small>
+
+            </div>
+
+
+            <!-- ================================================== -->
+            <!-- AÇÕES -->
+            <!-- ================================================== -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('index') }}"
+                    class="btn-secondary"
+                >
+                    ← Dashboard
+                </a>
+
+                <a
+                    href="{{ url_for('relatorios.historico') }}"
+                    class="btn-secondary"
+                >
+                    Histórico
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Salvar Relatório
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
