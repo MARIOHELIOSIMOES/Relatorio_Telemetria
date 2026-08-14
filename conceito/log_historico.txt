@@ -1,0 +1,40 @@
+Controle de usuários
+
+Administrador poderá
+
+criar usuário
+desativar usuário
+trocar senha
+redefinir senha
+tornar administrador
+Log do sistema
+
+Muito útil.
+
+Tabela
+
+logs
+
+id
+
+usuario
+
+acao
+
+data_hora
+
+ip
+
+Exemplo
+
+Mario
+
+Alterou aviso 32
+
+12/08/2026 14:33
+
+ou
+
+João
+
+Excluiu relatório

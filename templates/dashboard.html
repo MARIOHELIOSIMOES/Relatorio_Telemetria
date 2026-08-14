@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+Painel - Relatórios de Telemetria
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ===================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ===================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+            <h1>Relatórios de Telemetria</h1>
+            <p>SAAE Mogi Mirim</p>
+        </div>
+
+        <div class="user-info">
+            <p>
+                <strong>Usuário:</strong>
+                {{ current_user.nome }}
+            </p>
+
+            <a href="{{ url_for('login.logout') }}" class="btn-sair">
+                Sair
+            </a>
+        </div>
+
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- TURNO -->
+    <!-- ===================================================== -->
+
+    <section class="turno-card">
+
+        <h2>Turno Atual</h2>
+
+        <h1>{{ turno_atual }}º Turno</h1>
+
+        <p>{{ horario_turno }}</p>
+
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- MENU -->
+    <!-- ===================================================== -->
+
+    <section class="menu-grid">
+
+        <a href="{{ url_for('avisos.lista') }}" class="menu-card">
+            <div class="menu-icon">📢</div>
+
+            <h3>Quadro de Avisos</h3>
+
+            <p>
+                Consulte os avisos cadastrados pelos operadores.
+            </p>
+        </a>
+
+
+        <a href="#" class="menu-card">
+            <div class="menu-icon">📝</div>
+
+            <h3>Novo Relatório</h3>
+
+            <p>
+                Registrar relatório do turno.
+            </p>
+        </a>
+
+
+        <a href="#" class="menu-card">
+            <div class="menu-icon">📚</div>
+
+            <h3>Histórico</h3>
+
+            <p>
+                Consultar relatórios anteriores.
+            </p>
+        </a>
+
+
+        <a href="#" class="menu-card">
+            <div class="menu-icon">🔑</div>
+
+            <h3>Alterar Senha</h3>
+
+            <p>
+                Alterar sua senha de acesso.
+            </p>
+        </a>
+
+        {% if current_user.administrador %}
+
+        <a href="#" class="menu-card">
+            <div class="menu-icon">👤</div>
+
+            <h3>Usuários</h3>
+
+            <p>
+                Cadastro e gerenciamento de usuários.
+            </p>
+        </a>
+
+
+        <a href="{{ url_for('admin.index') }}"
+            class="menu-card">
+            <div class="menu-icon">⚙️</div>
+
+            <h3>Administração</h3>
+
+            <p>
+                Configurações gerais do sistema.
+            </p>
+        </a>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

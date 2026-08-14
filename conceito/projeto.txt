@@ -1,0 +1,30 @@
+telemetria_web/
+
+app.py
+
+config.py
+
+requirements.txt
+
+/database
+    models.py
+
+/routes
+    login.py
+    relatorios.py
+    avisos.py
+    usuarios.py
+
+/templates
+    base.html
+    login.html
+    dashboard.html
+    relatorios.html
+    aviso.html
+
+/static
+    css
+    js
+    img
+
+/migrations

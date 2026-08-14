@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Administração de Avisos - Relatórios de Telemetria
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Administração de Avisos
+            </h1>
+
+            <p>
+                Gerencie os comunicados do setor de telemetria
+            </p>
+
+        </div>
+
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('index') }}">
+                Voltar
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- MENSAGENS -->
+    <!-- ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================== -->
+    <!-- AÇÕES -->
+    <!-- ================================================== -->
+
+    <div class="pagina-acoes">
+
+        <a
+            href="{{ url_for('avisos.novo') }}"
+            class="btn-principal"
+        >
+
+            + Novo Aviso
+
+        </a>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- LISTA -->
+    <!-- ================================================== -->
+
+    {% if avisos %}
+
+        <section class="avisos-lista">
+
+            {% for aviso in avisos %}
+
+                <article
+                    class="
+                        aviso-card
+                        {% if not aviso.ativo %}
+                            aviso-inativo
+                        {% endif %}
+                    "
+                >
+
+                    <!-- ================================== -->
+                    <!-- CABEÇALHO DO AVISO -->
+                    <!-- ================================== -->
+
+                    <div class="aviso-header">
+
+                        <div class="aviso-icon">
+
+                            {% if aviso.ativo %}
+                                📢
+                            {% else %}
+                                🔕
+                            {% endif %}
+
+                        </div>
+
+
+                        <div>
+
+                            <h2>
+
+                                {{ aviso.titulo }}
+
+                            </h2>
+
+
+                            <p class="aviso-data">
+
+                                Criado em
+
+                                {{ aviso.data_criacao.strftime(
+                                    '%d/%m/%Y às %H:%M'
+                                ) }}
+
+                                por
+
+                                <strong>
+                                    {{ aviso.criador.nome }}
+                                </strong>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ================================== -->
+                    <!-- TEXTO -->
+                    <!-- ================================== -->
+
+                    <div class="aviso-texto">
+
+                        {{ aviso.texto
+                            | replace('\n', '<br>')
+                            | safe
+                        }}
+
+                    </div>
+
+
+                    <!-- ================================== -->
+                    <!-- RODAPÉ -->
+                    <!-- ================================== -->
+
+                    <div class="aviso-footer">
+
+                        {% if aviso.ativo %}
+
+                            <span class="status-ativo">
+
+                                ● Ativo
+
+                            </span>
+
+
+                            <form
+                                method="POST"
+                                action="{{
+                                    url_for(
+                                        'avisos.inativar',
+                                        aviso_id=aviso.id
+                                    )
+                                }}"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="btn-inativar"
+                                    onclick="
+                                        return confirm(
+                                            'Deseja realmente inativar este aviso?'
+                                        );
+                                    "
+                                >
+
+                                    Inativar
+
+                                </button>
+
+                            </form>
+
+                        {% else %}
+
+                            <div class="aviso-inativo-info">
+
+                                <span class="status-inativo">
+
+                                    ● Inativo
+
+                                </span>
+
+
+                                {% if aviso.data_inativacao %}
+
+                                    <span>
+
+                                        Inativado em
+
+                                        {{
+                                            aviso.data_inativacao.strftime(
+                                                '%d/%m/%Y às %H:%M'
+                                            )
+                                        }}
+
+                                        por
+
+                                        <strong>
+                                            {{ aviso.inativador.nome }}
+                                        </strong>
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </section>
+
+    {% else %}
+
+        <section class="turno-card">
+
+            <h2>
+                Nenhum aviso cadastrado
+            </h2>
+
+            <p>
+                Ainda não existem avisos cadastrados no sistema.
+            </p>
+
+        </section>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+TeleRelatorios
+
+│
+├── Login
+│
+├── Dashboard
+│
+├── Relatórios
+│      ├── Novo relatório
+│      ├── Histórico
+│      ├── Pesquisa
+│
+├── Quadro de Avisos
+│      ├── Avisos ativos
+│      ├── Avisos inativos
+│      ├── Novo aviso
+│
+├── Usuários
+│      ├── Cadastro
+│      ├── Alterar senha
+│      ├── Permissões
+│
+├── Administração
+│      ├── Backup
+│      ├── Configurações
+│      ├── Logs
+│
+└── Sobre

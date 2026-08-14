@@ -1,0 +1,14 @@
+usuarios
+---------
+id
+nome
+usuario
+senha_hash
+ativo
+administrador
+ultimo_login
+
+
+Senha utilizando
+
+bcrypt

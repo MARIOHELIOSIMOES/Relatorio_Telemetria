@@ -1,0 +1,1087 @@
+/* ============================================================
+   CONFIGURAÇÕES GERAIS
+============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f3f6f9;
+
+    color: #263238;
+}
+
+
+/* ============================================================
+   LOGIN
+============================================================ */
+
+.login-container {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eaf3f9,
+            #f7f9fb
+        );
+}
+
+.login-card {
+    width: 100%;
+
+    max-width: 420px;
+
+    background: #ffffff;
+
+    padding: 40px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+.login-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    margin: 0 0 8px 0;
+
+    font-size: 26px;
+
+    color: #155a8a;
+}
+
+.login-header p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   FORMULÁRIOS
+============================================================ */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+
+    border-color: #1769aa;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 170, 0.12);
+}
+
+.btn-login {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #1769aa;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+.btn-login:hover {
+    background: #125687;
+}
+
+.btn-login:active {
+    transform: translateY(1px);
+}
+
+
+/* ============================================================
+   ALERTAS
+============================================================ */
+
+.alert {
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+.alert-warning {
+    background: #fff3cd;
+
+    color: #664d03;
+
+    border:
+        1px solid #ffecb5;
+}
+
+.alert-danger {
+    background: #f8d7da;
+
+    color: #842029;
+
+    border:
+        1px solid #f1aeb5;
+}
+
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+
+.dashboard {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 30px;
+}
+
+
+/* ============================================================
+   CABEÇALHO
+============================================================ */
+
+.dashboard-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+
+    padding:
+        22px 25px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    border-left:
+        5px solid #1769aa;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    color: #164e70;
+}
+
+.dashboard-header p {
+    margin:
+        6px 0 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   INFORMAÇÕES DO USUÁRIO
+============================================================ */
+
+.user-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    white-space: nowrap;
+}
+
+.user-info span {
+    font-size: 14px;
+
+    color: #374151;
+}
+
+.user-info span::before {
+    content: "👤";
+
+    margin-right: 7px;
+}
+
+.user-info a {
+    padding:
+        7px 12px;
+
+    text-decoration: none;
+
+    color: #b42318;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    border-radius: 5px;
+
+    transition:
+        background 0.15s ease;
+}
+
+.user-info a:hover {
+    background: #fff1f0;
+}
+
+
+/* ============================================================
+   TURNO ATUAL
+============================================================ */
+
+.turno-card {
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1769aa,
+            #125687
+        );
+
+    color: white;
+
+    padding: 25px 30px;
+
+    margin-bottom: 30px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 4px 15px rgba(23, 105, 170, 0.20);
+}
+
+.turno-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    right: -60px;
+
+    top: -70px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+}
+
+.turno-card h2 {
+    position: relative;
+
+    margin:
+        0 0 8px 0;
+
+    font-size: 15px;
+
+    font-weight: normal;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    opacity: 0.85;
+}
+
+.turno-numero {
+    position: relative;
+
+    margin:
+        0 0 5px 0;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+.turno-card p:last-child {
+    position: relative;
+
+    margin: 0;
+
+    font-size: 14px;
+
+    opacity: 0.90;
+}
+
+
+/* ============================================================
+   MENU PRINCIPAL
+============================================================ */
+
+.menu-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 20px;
+}
+
+
+/* ============================================================
+   CARDS DO MENU
+============================================================ */
+
+.menu-card {
+    position: relative;
+
+    display: block;
+
+    min-height: 190px;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    border:
+        1px solid #e5e7eb;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.menu-card:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        #b8d4e6;
+
+    box-shadow:
+        0 7px 20px rgba(0, 0, 0, 0.10);
+}
+
+
+/* ============================================================
+   ÍCONES
+============================================================ */
+
+.menu-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+
+    height: 52px;
+
+    margin-bottom: 18px;
+
+    border-radius: 10px;
+
+    background: #eaf3f9;
+
+    font-size: 27px;
+}
+
+
+/* ============================================================
+   TÍTULOS DOS CARDS
+============================================================ */
+
+.menu-card h3 {
+    margin:
+        0 0 9px 0;
+
+    font-size: 18px;
+
+    color: #164e70;
+}
+
+
+/* ============================================================
+   DESCRIÇÃO DOS CARDS
+============================================================ */
+
+.menu-card p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   RODAPÉ
+============================================================ */
+
+.dashboard-footer {
+    margin-top: 35px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #dce2e7;
+
+    text-align: center;
+
+    color: #7b8794;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   RESPONSIVIDADE
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .dashboard {
+        padding: 15px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 20px;
+    }
+
+    .user-info {
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+
+    .turno-card {
+        padding: 22px;
+    }
+
+    .turno-numero {
+        font-size: 27px;
+    }
+
+    .menu-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .menu-card {
+        min-height: auto;
+    }
+}
+
+
+/* ============================================================
+   TELAS MUITO PEQUENAS
+============================================================ */
+
+@media (max-width: 420px) {
+
+    .login-card {
+        padding: 25px;
+    }
+
+    .dashboard {
+        padding: 10px;
+    }
+
+    .dashboard-header {
+        padding: 17px;
+    }
+
+    .user-info {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+}
+
+/* ============================================================
+   QUADRO DE AVISOS
+============================================================ */
+
+.avisos-lista {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+.aviso-card {
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    border: 1px solid #e5e7eb;
+
+    padding: 25px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+.aviso-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.aviso-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #eaf3f9;
+
+    font-size: 25px;
+}
+
+
+.aviso-header h2 {
+    margin:
+        0 0 6px 0;
+
+    color: #164e70;
+
+    font-size: 20px;
+}
+
+
+.aviso-data {
+    margin: 0;
+
+    color: #7b8794;
+
+    font-size: 13px;
+}
+
+
+.aviso-texto {
+    padding-top: 18px;
+
+    border-top:
+        1px solid #edf0f2;
+
+    color: #374151;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+/* ============================================================
+   PÁGINAS ADMINISTRATIVAS
+============================================================ */
+
+.pagina-acoes {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-bottom: 20px;
+}
+
+
+.btn-principal {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #1769aa;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.1s ease;
+}
+
+.btn-principal:hover {
+    background: #125687;
+}
+
+.btn-principal:active {
+    transform: translateY(1px);
+}
+
+
+.btn-secundario {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    border-radius: 6px;
+
+    background: #eef1f4;
+
+    color: #374151;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.btn-secundario:hover {
+    background: #e1e5e9;
+}
+
+
+/* ============================================================
+   FORMULÁRIO DE AVISO
+============================================================ */
+
+.form-card {
+    background: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+.form-card textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+        1px solid #cbd5e1;
+
+    border-radius: 6px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    resize: vertical;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.form-card textarea:focus {
+    outline: none;
+
+    border-color: #1769aa;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 170, 0.12);
+}
+
+
+.form-acoes {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+/* ============================================================
+   RODAPÉ DO AVISO
+============================================================ */
+
+.aviso-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid #edf0f2;
+}
+
+
+.status-ativo {
+    color: #18864b;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.status-inativo {
+    color: #9a3412;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.btn-inativar {
+    padding: 8px 14px;
+
+    border: 1px solid #dc3545;
+
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    color: #c62828;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.btn-inativar:hover {
+    background: #fff1f0;
+}
+
+
+.aviso-inativo {
+    opacity: 0.72;
+
+    background: #f8f9fa;
+}
+
+
+.aviso-inativo-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    color: #7b8794;
+
+    font-size: 12px;
+}
+/* ==========================================================
+ADMINISTRAÇÃO
+========================================================== */
+
+.admin-section {
+    margin-bottom: 35px;
+}
+
+.admin-section h2 {
+    margin-bottom: 18px;
+    font-size: 21px;
+    color: #333;
+}
+
+.admin-section .menu-grid {
+    margin-bottom: 0;
+}
+/* ==========================================================
+ADMINISTRAÇÃO - USUÁRIOS
+========================================================== */
+
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-small {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #1769aa;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #125687;
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #dfe3e6;
+}
+
+.btn-small {
+    padding: 7px 10px;
+    background: #f0f2f4;
+    color: #333;
+    font-size: 13px;
+}
+
+.btn-small:hover {
+    background: #dfe3e6;
+}
+
+
+/* ==========================================================
+TABELA DE USUÁRIOS
+========================================================== */
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.07);
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+.users-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.user-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+
+/* ==========================================================
+STATUS
+========================================================== */
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.ativo {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status.inativo {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* ==========================================================
+FORMULÁRIOS ADMINISTRATIVOS
+========================================================== */
+
+.form-card {
+    max-width: 650px;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.07);
+}
+
+.checkbox-group {
+    margin-bottom: 18px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 13px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}

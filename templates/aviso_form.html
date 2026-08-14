@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Novo Aviso - Relatórios de Telemetria
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Novo Aviso
+            </h1>
+
+            <p>
+                Publique um novo comunicado
+            </p>
+
+        </div>
+
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a
+                href="{{ url_for('avisos.admin') }}"
+            >
+                Voltar
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- MENSAGENS -->
+    <!-- ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================== -->
+    <!-- FORMULÁRIO -->
+    <!-- ================================================== -->
+
+    <section class="form-card">
+
+        <form
+            method="POST"
+        >
+
+            <!-- ========================================== -->
+            <!-- TÍTULO -->
+            <!-- ========================================== -->
+
+            <div class="form-group">
+
+                <label for="titulo">
+
+                    Título
+
+                </label>
+
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    maxlength="200"
+                    required
+                    autofocus
+                >
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- TEXTO -->
+            <!-- ========================================== -->
+
+            <div class="form-group">
+
+                <label for="texto">
+
+                    Aviso
+
+                </label>
+
+                <textarea
+                    id="texto"
+                    name="texto"
+                    rows="10"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- ========================================== -->
+            <!-- BOTÕES -->
+            <!-- ========================================== -->
+
+            <div class="form-acoes">
+
+                <a
+                    href="{{ url_for('avisos.admin') }}"
+                    class="btn-secundario"
+                >
+
+                    Cancelar
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+
+                    Publicar Aviso
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

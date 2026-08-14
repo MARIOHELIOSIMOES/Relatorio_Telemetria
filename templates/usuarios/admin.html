@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}
+Gerenciar Usuários
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Gerenciar Usuários
+            </h1>
+
+            <p>
+                Usuários cadastrados no sistema
+            </p>
+
+        </div>
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- MENSAGENS -->
+    <!-- ================================================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- ================================================== -->
+    <!-- AÇÕES -->
+    <!-- ================================================== -->
+
+    <div class="admin-actions">
+
+        <a
+            href="{{ url_for('usuarios.novo') }}"
+            class="btn-primary"
+        >
+            ➕ Novo Usuário
+        </a>
+
+        <a
+            href="{{ url_for('admin.index') }}"
+            class="btn-secondary"
+        >
+            ← Administração
+        </a>
+
+    </div>
+
+
+    <!-- ================================================== -->
+    <!-- TABELA -->
+    <!-- ================================================== -->
+
+    <div class="table-container">
+
+        <table class="users-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Nome
+                    </th>
+
+                    <th>
+                        Usuário
+                    </th>
+
+                    <th>
+                        E-mail
+                    </th>
+
+                    <th>
+                        Administrador
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for usuario in usuarios %}
+
+                <tr>
+
+                    <td>
+                        {{ usuario.nome }}
+                    </td>
+
+                    <td>
+                        {{ usuario.usuario }}
+                    </td>
+
+                    <td>
+
+                        {% if usuario.email %}
+                            {{ usuario.email }}
+                        {% else %}
+                            —
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if usuario.administrador %}
+                            Sim
+                        {% else %}
+                            Não
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if usuario.ativo %}
+
+                            <span class="status ativo">
+                                Ativo
+                            </span>
+
+                        {% else %}
+
+                            <span class="status inativo">
+                                Inativo
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <div class="user-actions">
+
+                            <a
+                                href="{{ url_for(
+                                    'usuarios.editar',
+                                    user_id=usuario.id
+                                ) }}"
+                                class="btn-small"
+                            >
+                                ✏️ Editar
+                            </a>
+
+                            <a
+                                href="{{ url_for(
+                                    'usuarios.senha',
+                                    user_id=usuario.id
+                                ) }}"
+                                class="btn-small"
+                            >
+                                🔑 Senha
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        style="text-align: center;"
+                    >
+                        Nenhum usuário cadastrado.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

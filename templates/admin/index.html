@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}
+Administração - Relatórios de Telemetria
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Administração
+            </h1>
+
+            <p>
+                Gerenciamento do Sistema de Relatórios de Telemetria
+            </p>
+
+        </div>
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('login.logout') }}">
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- USUÁRIOS -->
+    <!-- ================================================== -->
+
+    <section class="admin-section">
+
+        <h2>
+            Usuários
+        </h2>
+
+        <div class="menu-grid">
+
+            <a
+                href="{{ url_for('usuarios.admin') }}"
+                class="menu-card"
+            >
+
+                <div class="menu-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Gerenciar Usuários
+                </h3>
+
+                <p>
+                    Consulte, cadastre e gerencie
+                    os usuários do sistema.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('usuarios.novo') }}"
+                class="menu-card"
+            >
+
+                <div class="menu-icon">
+                    ➕
+                </div>
+
+                <h3>
+                    Novo Usuário
+                </h3>
+
+                <p>
+                    Cadastre um novo usuário
+                    para acesso ao sistema.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================== -->
+    <!-- AVISOS -->
+    <!-- ================================================== -->
+
+    <section class="admin-section">
+
+        <h2>
+            Avisos
+        </h2>
+
+        <div class="menu-grid">
+
+            <a
+                href="{{ url_for('avisos.admin') }}"
+                class="menu-card"
+            >
+
+                <div class="menu-icon">
+                    📢
+                </div>
+
+                <h3>
+                    Gerenciar Avisos
+                </h3>
+
+                <p>
+                    Consulte e gerencie os avisos
+                    publicados no sistema.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('avisos.admin') }}"
+                class="menu-card"
+            >
+
+                <div class="menu-icon">
+                    ➕
+                </div>
+
+                <h3>
+                    Novo Aviso
+                </h3>
+
+                <p>
+                    Publique um novo aviso
+                    para os operadores.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================== -->
+    <!-- SISTEMA -->
+    <!-- ================================================== -->
+
+    <section class="admin-section">
+
+        <h2>
+            Sistema
+        </h2>
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+
+                <div class="menu-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Logs do Sistema
+                </h3>
+
+                <p>
+                    Consulta das atividades realizadas
+                    pelos usuários.
+                </p>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <div class="menu-icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Configurações
+                </h3>
+
+                <p>
+                    Configurações gerais do sistema.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================== -->
+    <!-- VOLTAR -->
+    <!-- ================================================== -->
+
+    <div style="margin-top: 30px;">
+
+        <a
+            href="{{ url_for('index') }}"
+            class="menu-card"
+            style="display: inline-block;"
+        >
+            ← Voltar ao Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

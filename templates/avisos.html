@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+Quadro de Avisos - Relatórios de Telemetria
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- ================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ================================================== -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Quadro de Avisos
+            </h1>
+
+            <p>
+                Avisos e comunicados do setor de telemetria
+            </p>
+
+        </div>
+
+
+        <div class="user-info">
+
+            <span>
+                Olá, {{ current_user.nome }}
+            </span>
+
+            <a href="{{ url_for('index') }}">
+                Voltar
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- AVISOS -->
+    <!-- ================================================== -->
+
+    {% if avisos %}
+
+        <section class="avisos-lista">
+
+            {% for aviso in avisos %}
+
+                <article class="aviso-card">
+
+                    <div class="aviso-header">
+
+                        <div class="aviso-icon">
+                            📢
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                {{ aviso.titulo }}
+                            </h2>
+
+                            <p class="aviso-data">
+
+                                Publicado em
+                                {{ aviso.data_criacao.strftime('%d/%m/%Y às %H:%M') }}
+
+                                por
+
+                                <strong>
+                                    {{ aviso.criador.nome }}
+                                </strong>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="aviso-texto">
+
+                        {{ aviso.texto | replace('\n', '<br>') | safe }}
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </section>
+
+    {% else %}
+
+        <section class="turno-card">
+
+            <h2>
+                Nenhum aviso
+            </h2>
+
+            <p>
+                Não existem avisos ativos no momento.
+            </p>
+
+        </section>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

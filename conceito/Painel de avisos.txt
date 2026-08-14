@@ -1,0 +1,22 @@
+Painel de avisos
+
+Tabela
+
+avisos
+
+id
+titulo
+texto
+usuario
+data_criacao
+ativo
+data_inativacao
+usuario_inativacao
+
+Na tela inicial apareceria somente
+
+Avisos Ativos
+
+Lá embaixo um botão
+
+Mostrar avisos antigos

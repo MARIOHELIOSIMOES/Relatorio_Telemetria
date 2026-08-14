@@ -1,0 +1,62 @@
+Relatórios de turno
+
+Essa é a parte mais interessante.
+
+Tabela
+
+relatorios
+
+id
+usuario
+data_hora
+turno
+texto
+editavel
+
+ou
+
+id
+usuario_id
+data_hora
+turno
+descricao
+Turno automático
+
+O sistema calcula sozinho.
+
+00:00 às 05:59 -> Turno A
+
+06:00 às 11:59 -> Turno B
+
+12:00 às 17:59 -> Turno C
+
+18:00 às 23:59 -> Turno D
+
+O operador nem escolhe.
+
+
+Histórico
+
+Filtros
+
+Período
+
+Funcionário
+
+Turno
+
+Palavra-chave
+
+Exemplo
+
+motor
+
+inversor
+
+ETA
+
+Captação
+
+Bomba 3
+
+Isso vai ajudar muito quando alguém lembrar apenas de um termo.

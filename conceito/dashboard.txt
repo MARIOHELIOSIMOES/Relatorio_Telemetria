@@ -1,0 +1,17 @@
+Dashboard
+
+Ao entrar no sistema.
+
+Bom dia, Mario
+
+Turno atual:
+
+C
+
+Últimos relatórios
+
+Últimos avisos
+
+Quantidade de avisos ativos
+
+Último acesso

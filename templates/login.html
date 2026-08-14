@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login - Relatórios de Telemetria
+{% endblock %}
+
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-header">
+
+            <h1>
+                Relatórios de Telemetria
+            </h1>
+
+            <p>
+                SAAE Mogi Mirim
+            </p>
+
+        </div>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <form
+            method="POST"
+            action="{{ url_for('login.login') }}"
+        >
+
+            <div class="form-group">
+
+                <label for="usuario">
+                    Usuário
+                </label>
+
+                <input
+                    type="text"
+                    id="usuario"
+                    name="usuario"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-login"
+            >
+                Entrar
+            </button>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
