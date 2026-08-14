@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block title %}
 
 Administração de Avisos - Relatórios de Telemetria
@@ -10,40 +9,46 @@ Administração de Avisos - Relatórios de Telemetria
 
 {% block content %}
 
-<div class="dashboard">
+<div class="admin-container">
 
     <!-- ================================================== -->
     <!-- CABEÇALHO -->
     <!-- ================================================== -->
 
-    <header class="dashboard-header">
+    <div class="admin-header">
 
         <div>
 
             <h1>
-                Administração de Avisos
+                Gerenciamento de Avisos
             </h1>
 
             <p>
-                Gerencie os comunicados do setor de telemetria
+                Gerencie os avisos e comunicados do setor de telemetria.
             </p>
 
         </div>
 
 
-        <div class="user-info">
+        <div class="admin-header-actions">
 
-            <span>
-                Olá, {{ current_user.nome }}
-            </span>
+            <a
+                href="{{ url_for('avisos.novo') }}"
+                class="btn-primary"
+            >
+                + Novo Aviso
+            </a>
 
-            <a href="{{ url_for('index') }}">
-                Voltar
+            <a
+                href="{{ url_for('avisos.lista') }}"
+                class="btn-secondary"
+            >
+                Ver Quadro de Avisos
             </a>
 
         </div>
 
-    </header>
+    </div>
 
 
     <!-- ================================================== -->
@@ -54,15 +59,19 @@ Administração de Avisos - Relatórios de Telemetria
 
         {% if messages %}
 
-            {% for category, message in messages %}
+            <div class="flash-container">
 
-                <div class="alert alert-{{ category }}">
+                {% for category, message in messages %}
 
-                    {{ message }}
+                    <div class="alert alert-{{ category }}">
 
-                </div>
+                        {{ message }}
 
-            {% endfor %}
+                    </div>
+
+                {% endfor %}
+
+            </div>
 
         {% endif %}
 
@@ -70,205 +79,207 @@ Administração de Avisos - Relatórios de Telemetria
 
 
     <!-- ================================================== -->
-    <!-- AÇÕES -->
+    <!-- LISTA DE AVISOS -->
     <!-- ================================================== -->
 
-    <div class="pagina-acoes">
+    <div class="admin-card">
 
-        <a
-            href="{{ url_for('avisos.novo') }}"
-            class="btn-principal"
-        >
+        {% if avisos %}
 
-            + Novo Aviso
+            <div class="avisos-admin-list">
 
-        </a>
+                {% for aviso in avisos %}
 
-    </div>
-
-
-    <!-- ================================================== -->
-    <!-- LISTA -->
-    <!-- ================================================== -->
-
-    {% if avisos %}
-
-        <section class="avisos-lista">
-
-            {% for aviso in avisos %}
-
-                <article
-                    class="
-                        aviso-card
+                    <div class="aviso-admin-item
                         {% if not aviso.ativo %}
                             aviso-inativo
                         {% endif %}
-                    "
-                >
+                    ">
 
-                    <!-- ================================== -->
-                    <!-- CABEÇALHO DO AVISO -->
-                    <!-- ================================== -->
+                        <!-- ================================== -->
+                        <!-- INFORMAÇÕES -->
+                        <!-- ================================== -->
 
-                    <div class="aviso-header">
+                        <div class="aviso-admin-info">
 
-                        <div class="aviso-icon">
+                            <div class="aviso-admin-title">
 
-                            {% if aviso.ativo %}
-                                📢
-                            {% else %}
-                                🔕
-                            {% endif %}
-
-                        </div>
+                                <h2>
+                                    {{ aviso.titulo }}
+                                </h2>
 
 
-                        <div>
+                                {% if aviso.ativo %}
 
-                            <h2>
+                                    <span class="status ativo">
+                                        ATIVO
+                                    </span>
 
-                                {{ aviso.titulo }}
+                                {% else %}
 
-                            </h2>
-
-
-                            <p class="aviso-data">
-
-                                Criado em
-
-                                {{ aviso.data_criacao.strftime(
-                                    '%d/%m/%Y às %H:%M'
-                                ) }}
-
-                                por
-
-                                <strong>
-                                    {{ aviso.criador.nome }}
-                                </strong>
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- ================================== -->
-                    <!-- TEXTO -->
-                    <!-- ================================== -->
-
-                    <div class="aviso-texto">
-
-                        {{ aviso.texto
-                            | replace('\n', '<br>')
-                            | safe
-                        }}
-
-                    </div>
-
-
-                    <!-- ================================== -->
-                    <!-- RODAPÉ -->
-                    <!-- ================================== -->
-
-                    <div class="aviso-footer">
-
-                        {% if aviso.ativo %}
-
-                            <span class="status-ativo">
-
-                                ● Ativo
-
-                            </span>
-
-
-                            <form
-                                method="POST"
-                                action="{{
-                                    url_for(
-                                        'avisos.inativar',
-                                        aviso_id=aviso.id
-                                    )
-                                }}"
-                            >
-
-                                <button
-                                    type="submit"
-                                    class="btn-inativar"
-                                    onclick="
-                                        return confirm(
-                                            'Deseja realmente inativar este aviso?'
-                                        );
-                                    "
-                                >
-
-                                    Inativar
-
-                                </button>
-
-                            </form>
-
-                        {% else %}
-
-                            <div class="aviso-inativo-info">
-
-                                <span class="status-inativo">
-
-                                    ● Inativo
-
-                                </span>
-
-
-                                {% if aviso.data_inativacao %}
-
-                                    <span>
-
-                                        Inativado em
-
-                                        {{
-                                            aviso.data_inativacao.strftime(
-                                                '%d/%m/%Y às %H:%M'
-                                            )
-                                        }}
-
-                                        por
-
-                                        <strong>
-                                            {{ aviso.inativador.nome }}
-                                        </strong>
-
+                                    <span class="status inativo">
+                                        INATIVO
                                     </span>
 
                                 {% endif %}
 
                             </div>
 
-                        {% endif %}
+
+                            <div class="aviso-admin-text">
+
+                                {{ aviso.texto }}
+
+                            </div>
+
+
+                            <div class="aviso-admin-meta">
+
+                                <span>
+                                    Criado por:
+                                    <strong>
+                                        {{ aviso.criador.nome }}
+                                    </strong>
+                                </span>
+
+                                <span>
+                                    Em:
+                                    <strong>
+                                        {{ aviso.data_criacao.strftime('%d/%m/%Y %H:%M') }}
+                                    </strong>
+                                </span>
+
+
+                                {% if not aviso.ativo and aviso.inativador %}
+
+                                    <span>
+
+                                        Inativado por:
+                                        <strong>
+                                            {{ aviso.inativador.nome }}
+                                        </strong>
+
+                                    </span>
+
+                                    {% if aviso.data_inativacao %}
+
+                                        <span>
+
+                                            Em:
+                                            <strong>
+                                                {{ aviso.data_inativacao.strftime('%d/%m/%Y %H:%M') }}
+                                            </strong>
+
+                                        </span>
+
+                                    {% endif %}
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================================== -->
+                        <!-- AÇÕES -->
+                        <!-- ================================== -->
+
+                        <div class="aviso-admin-actions">
+
+                            <a
+                                href="{{ url_for(
+                                    'avisos.editar',
+                                    aviso_id=aviso.id
+                                ) }}"
+                                class="btn-small btn-edit"
+                            >
+                                Editar
+                            </a>
+
+
+                            {% if aviso.ativo %}
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'avisos.inativar',
+                                        aviso_id=aviso.id
+                                    ) }}"
+                                    onsubmit="return confirm(
+                                        'Deseja realmente inativar este aviso?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-small btn-warning"
+                                    >
+                                        Inativar
+                                    </button>
+
+                                </form>
+
+                            {% else %}
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'avisos.reativar',
+                                        aviso_id=aviso.id
+                                    ) }}"
+                                    onsubmit="return confirm(
+                                        'Deseja realmente reativar este aviso?'
+                                    );"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="btn-small btn-success"
+                                    >
+                                        Reativar
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        </div>
 
                     </div>
 
-                </article>
+                {% endfor %}
 
-            {% endfor %}
+            </div>
 
-        </section>
+        {% else %}
 
-    {% else %}
+            <div class="empty-state">
 
-        <section class="turno-card">
+                <div class="empty-icon">
+                    📢
+                </div>
 
-            <h2>
-                Nenhum aviso cadastrado
-            </h2>
+                <h2>
+                    Nenhum aviso cadastrado
+                </h2>
 
-            <p>
-                Ainda não existem avisos cadastrados no sistema.
-            </p>
+                <p>
+                    Ainda não existem avisos cadastrados no sistema.
+                </p>
 
-        </section>
+                <a
+                    href="{{ url_for('avisos.novo') }}"
+                    class="btn-primary"
+                >
+                    Criar primeiro aviso
+                </a>
 
-    {% endif %}
+            </div>
 
+        {% endif %}
+
+    </div>
 
 </div>
 
