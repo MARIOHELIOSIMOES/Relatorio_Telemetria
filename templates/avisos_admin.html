@@ -33,17 +33,26 @@ Administração de Avisos - Relatórios de Telemetria
         <div class="admin-header-actions">
 
             <a
-                href="{{ url_for('avisos.novo') }}"
-                class="btn-primary"
+                href="{{ url_for('index') }}"
+                class="btn-secondary"
             >
-                + Novo Aviso
+                ← Dashboard
             </a>
+
 
             <a
                 href="{{ url_for('avisos.lista') }}"
                 class="btn-secondary"
             >
-                Ver Quadro de Avisos
+                📢 Quadro de Avisos
+            </a>
+
+
+            <a
+                href="{{ url_for('avisos.novo') }}"
+                class="btn-primary"
+            >
+                + Novo Aviso
             </a>
 
         </div>
@@ -185,67 +194,97 @@ Administração de Avisos - Relatórios de Telemetria
                         <!-- AÇÕES -->
                         <!-- ================================== -->
 
-                        <div class="aviso-admin-actions">
+                        
+                            <div class="aviso-admin-actions">
 
-                            <a
-                                href="{{ url_for(
-                                    'avisos.editar',
-                                    aviso_id=aviso.id
-                                ) }}"
-                                class="btn-small btn-edit"
-                            >
-                                Editar
-                            </a>
-
-
-                            {% if aviso.ativo %}
-
-                                <form
-                                    method="POST"
-                                    action="{{ url_for(
-                                        'avisos.inativar',
+                                <a
+                                    href="{{ url_for(
+                                        'avisos.editar',
                                         aviso_id=aviso.id
                                     ) }}"
-                                    onsubmit="return confirm(
-                                        'Deseja realmente inativar este aviso?'
-                                    );"
+                                    class="btn-small btn-edit"
                                 >
+                                    Editar
+                                </a>
 
-                                    <button
-                                        type="submit"
-                                        class="btn-small btn-warning"
+
+                                {% if aviso.ativo %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'avisos.inativar',
+                                            aviso_id=aviso.id
+                                        ) }}"
+                                        onsubmit="return confirm(
+                                            'Deseja realmente inativar este aviso?'
+                                        );"
                                     >
-                                        Inativar
-                                    </button>
 
-                                </form>
+                                        <button
+                                            type="submit"
+                                            class="btn-small btn-warning"
+                                        >
+                                            Inativar
+                                        </button>
 
-                            {% else %}
+                                    </form>
 
-                                <form
-                                    method="POST"
-                                    action="{{ url_for(
-                                        'avisos.reativar',
-                                        aviso_id=aviso.id
-                                    ) }}"
-                                    onsubmit="return confirm(
-                                        'Deseja realmente reativar este aviso?'
-                                    );"
-                                >
+                                {% else %}
 
-                                    <button
-                                        type="submit"
-                                        class="btn-small btn-success"
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'avisos.reativar',
+                                            aviso_id=aviso.id
+                                        ) }}"
+                                        onsubmit="return confirm(
+                                            'Deseja realmente reativar este aviso?'
+                                        );"
                                     >
-                                        Reativar
-                                    </button>
 
-                                </form>
+                                        <button
+                                            type="submit"
+                                            class="btn-small btn-success"
+                                        >
+                                            Reativar
+                                        </button>
 
-                            {% endif %}
+                                    </form>
 
-                        </div>
+                                {% endif %}
 
+
+                                <!-- ================================================ -->
+                                <!-- EXCLUIR - SOMENTE ADMINISTRADOR -->
+                                <!-- ================================================ -->
+
+                                {% if current_user.administrador %}
+
+                                    <form
+                                        method="POST"
+                                        action="{{ url_for(
+                                            'avisos.excluir',
+                                            aviso_id=aviso.id
+                                        ) }}"
+                                        onsubmit="return confirm(
+                                            'ATENÇÃO: deseja realmente excluir este aviso definitivamente? Esta ação não poderá ser desfeita.'
+                                        );"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="btn-small btn-danger"
+                                        >
+                                            Excluir
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+                            </div>
+                        
                     </div>
 
                 {% endfor %}

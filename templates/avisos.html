@@ -54,9 +54,17 @@ Quadro de Avisos - Relatórios de Telemetria
 
         <a
             href="{{ url_for('index') }}"
-            class="btn-secondary"
+            class="btn-secundario"
         >
-            ← Voltar ao Dashboard
+            ← Dashboard
+        </a>
+
+
+        <a
+            href="{{ url_for('avisos.admin') }}"
+            class="btn-principal"
+        >
+            ⚙ Gerenciar Avisos
         </a>
 
     </div>
@@ -89,7 +97,10 @@ Quadro de Avisos - Relatórios de Telemetria
                             <p class="aviso-data">
 
                                 Publicado em
-                                {{ aviso.data_criacao.strftime('%d/%m/%Y às %H:%M') }}
+
+                                {{ aviso.data_criacao.strftime(
+                                    '%d/%m/%Y às %H:%M'
+                                ) }}
 
                                 por
 
@@ -106,7 +117,10 @@ Quadro de Avisos - Relatórios de Telemetria
 
                     <div class="aviso-texto">
 
-                        {{ aviso.texto | replace('\n', '<br>') | safe }}
+                        {{ aviso.texto
+                            | replace('\n', '<br>')
+                            | safe
+                        }}
 
                     </div>
 
