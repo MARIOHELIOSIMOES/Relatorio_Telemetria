@@ -164,7 +164,7 @@ def novo():
             titulo=titulo,
             texto=texto,
             usuario_id=current_user.id,
-            data_criacao=datetime.utcnow(),
+            data_criacao=datetime.now(),
             ativo=True
         )
 
@@ -378,7 +378,7 @@ def inativar(aviso_id):
 
     aviso.ativo = False
 
-    aviso.data_inativacao = datetime.utcnow()
+    aviso.data_inativacao = datetime.now()
 
     aviso.usuario_inativacao = current_user.id
 
