@@ -88,7 +88,11 @@ Redefinir Senha
                 </button>
 
                 <a
-                    href="{{ url_for('usuarios.admin') }}"
+                    href="{{ url_for(
+                        'usuarios.admin'
+                        if current_user.administrador
+                        else 'index'
+                    ) }}"
                     class="btn-secondary"
                 >
                     Cancelar

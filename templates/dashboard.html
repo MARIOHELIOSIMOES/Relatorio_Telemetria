@@ -414,7 +414,10 @@ Painel - Relatórios de Telemetria
         <!-- ALTERAR SENHA -->
 
         <a
-            href="#"
+            href="{{ url_for(
+                'usuarios.senha',
+                user_id=current_user.id
+            ) }}"
             class="menu-card"
         >
 

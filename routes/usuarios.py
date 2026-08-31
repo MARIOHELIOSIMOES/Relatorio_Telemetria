@@ -367,7 +367,10 @@ def editar(user_id):
 @login_required
 def senha(user_id):
 
-    if not administrador_required():
+    if (
+        not current_user.administrador
+        and current_user.id != user_id
+    ):
         return "Acesso negado.", 403
 
     usuario = db.session.get(
@@ -425,8 +428,13 @@ def senha(user_id):
             "success"
         )
 
+        if current_user.administrador:
+            return redirect(
+                url_for("usuarios.admin")
+            )
+
         return redirect(
-            url_for("usuarios.admin")
+            url_for("index")
         )
 
     return render_template(
